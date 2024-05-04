@@ -1,6 +1,6 @@
 {
   "name": "loudo",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Model/View/Controller for TypeScript",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -12,7 +12,7 @@
   ],
   "scripts": {
     "build": "tsc",
-    "test": "jest --coverage"
+    "test": "vitest --run --coverage"
   },
   "repository": {
     "type": "git",
@@ -29,14 +29,13 @@
     "@vitest/coverage-v8": "^1.2.2",
     "jsdom": "^24.0.0",
     "typescript": "^5.3.3",
-    "vitest": "^1.2.2"
+    "vitest": "^1.3.1"
   },
   "dependencies": {
-    "@pjack/tjson": "^1.0.2",
-    "loud-array": "^1.0.0",
-    "loudify": "^1.0.4",
-    "loudo-bind": "^1.0.3",
-    "loudo-check": "^1.0.4",
-    "tjson": "^0.0.3"
+    "@pjack/el": "^1.0.2",
+    "loud-array": "^1.0.1",
+    "loudify": "^2.0.3",
+    "loudo-bind": "^2.0.1",
+    "loudo-check": "^6.0.9"
   }
 }

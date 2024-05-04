@@ -4,7 +4,7 @@
     "esModuleInterop":true,
     "outDir": "./dist/",
     "module": "es6",
-    "target": "ES2022",
+    "target": "es6",
     "declaration": true,
     "lib": ["ESNext"],
     "strict": true,

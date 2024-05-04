@@ -1,66 +1,71 @@
 import "loudo-bind"
-import { Check } from "loudo-check"
-import {
-  Loud,
-  loudify,
-  extendWith as loudExtendWith,
-  checkWith as loudCheckWith
-} from "loudify"
-import { TJSON } from "@pjack/tjson"
+import { Base, Check, CheckError } from "loudo-check"
+import { Loud, loudify, checkWith, Mutable } from "loudify"
 import { La } from "loud-array"
+import {} from "loudo-bind"
+import { el } from "@pjack/el"
 
-loudExtendWith(<T extends object>(loud:Loud<T>, observed:T) => {
-  const a = observed as any
-  a[TJSON.beforeParse] = ():object => observed
-  a[TJSON.afterParse] = (o:object) => loudify(o)
-})
-loudCheckWith(<T extends object,K extends keyof T>(obj:T, key:K, value:T[K]) => {
-  const fails = Check.runOne(obj, key, value)
-  if (fails.length > 0) {
-    throw new TypeError(fails.map(x => x.message).join("; "))
-  }
-})
+Check.augmentWith(loudify)
 
-TJSON.checkWith(Check.run)
-
-const laType:TJSON.Type = {
-  priority: 15_000_000,
-  isValid: <T>(sample:T):boolean => {
-    return sample instanceof La
-  },
-  parse: async (lex:TJSON.Lex, sample:any) => {
-    const array = (sample as La<any>[])
-    if (array.length === 0) {
-      throw lex.error("No sample element in sample loud array.")
+let check = <T extends object>(obj:T, key:keyof T, value:T[typeof key]):void => {
+  if (obj instanceof Base) {
+    const fails = Check.runOne(obj.constructor as never, obj, key, value)
+    if (fails.length > 0) {
+      throw new CheckError(fails[0]!)
     }
-    const sampleElement = (sample as any[])[0]
-    const result:La<any>[] = new La()
-    for await (const x of lex.elements(sampleElement)) {
-      result.push(x)
-    }
-    return result
   }
 }
-TJSON.addType(laType)
+checkWith(check)
 
-const loudCopy = <T extends object>(sample:Loud<T>, value:T) => {
-  const result = loudify(value)
-  Check.copy(sample, result)
-  return result
+export const define = <S extends Check.Schema>(schema:S):new(fields:Check.In<S>)=>Loud<Check.Out<S>> => {
+  return Check.define(schema) as never
 }
 
-const modelify = <T extends Record<string,Check.Property<any>>>(schema:T) => {
-  return loudify(Check.define(schema))
-}
+export const sample = Check.sample
 
-export {
-  Check,
-  loudify,
-  modelify,
-  loudCopy,
-  TJSON,
-}
+export const parse = Check.parse
+
+export const oneOff = loudify
+
+Check.addType(Check.collectionType({
+  name: "loud array",
+  make: () => { return new La<unknown>() },
+  add: (a:La<unknown>, v:unknown) => a.push(v),
+  sampleElement: (c:La<unknown>) => c[0],
+}))
+
+export { Base, Check, CheckError, el, La }
 
 export type {
   Loud
 }
+
+export class Tab extends define({
+  location: { v:window.location, readonly:true },
+  width: { v:0, min:0, readonly:true },
+  height: { v:0, min:0, readonly:true },
+}) {
+  get path() { return this.location.pathname }
+  goTo(path:string) {
+    window.history.pushState(undefined, "", new URL(path, window.location.href))
+    mtab.location = window.location
+  }
+}
+
+export const tab = new Tab({
+  location: window.location,
+  width: window.innerWidth,
+  height: window.innerHeight,
+})
+
+const mtab = tab as Mutable<Tab>
+
+window.addEventListener("popstate", () => {
+  /* v8 ignore next 2 */
+  mtab.location = window.location
+})
+
+window.addEventListener("resize", () => {
+  mtab.width = window.innerWidth
+  mtab.height = window.innerHeight
+})
