@@ -1,6 +1,6 @@
 {
   "name": "loudo",
-  "version": "2.0.2",
+  "version": "3.0.0",
   "description": "Model/View/Controller for TypeScript",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -34,8 +34,8 @@
   "dependencies": {
     "@pjack/el": "^1.0.2",
     "loud-array": "^1.0.1",
-    "loudify": "^2.0.3",
-    "loudo-bind": "^2.0.2",
+    "loudify": "^3.0.0",
+    "loudo-bind": "^3.0.0",
     "loudo-check": "^6.0.9"
   }
 }

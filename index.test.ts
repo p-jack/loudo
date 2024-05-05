@@ -5,8 +5,6 @@ import {
   test,
 } from 'vitest'
 
-const delay = (millis: number) => { return new Promise((resolve) => setTimeout(resolve, millis)); }
-
 test("models", () => {
   class C extends define({
     id: { v:0, min:1 },
