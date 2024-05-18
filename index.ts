@@ -30,6 +30,7 @@ export const oneOff = loudify
 Check.addType(Check.collectionType({
   name: "loud array",
   make: () => { return new La<unknown>() },
+  appliesTo: x => { return x instanceof La },
   add: (a:La<unknown>, v:unknown) => a.push(v),
   sampleElement: (c:La<unknown>) => c[0],
 }))
