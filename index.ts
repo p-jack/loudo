@@ -41,6 +41,8 @@ export type {
   Loud
 }
 
+let popping = false
+
 export class Tab extends define({
   location: { v:window.location, readonly:true },
   width: { v:0, min:0, readonly:true },
@@ -48,7 +50,9 @@ export class Tab extends define({
 }) {
   get path() { return this.location.pathname }
   goTo(path:string) {
-    window.history.pushState(undefined, "", new URL(path, window.location.href))
+    if (!popping) {
+      window.history.pushState(undefined, "", new URL(path, window.location.href))
+    }
     mtab.location = window.location
   }
 }
@@ -62,8 +66,13 @@ export const tab = new Tab({
 const mtab = tab as Mutable<Tab>
 
 window.addEventListener("popstate", () => {
-  /* v8 ignore next 2 */
-  mtab.location = window.location
+  /* v8 ignore next 7 */
+  popping = true
+  try {
+    tab.goTo(window.location.pathname)
+  } finally {
+    popping = false
+  }
 })
 
 window.addEventListener("resize", () => {
