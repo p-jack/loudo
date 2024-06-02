@@ -66,7 +66,8 @@ export const tab = new Tab({
 const mtab = tab as Mutable<Tab>
 
 window.addEventListener("popstate", () => {
-  /* v8 ignore next 7 */
+  /* v8 ignore next 8 */
+  if (window.location.pathname === tab.path) return
   popping = true
   try {
     tab.goTo(window.location.pathname)
