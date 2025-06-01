@@ -1,6 +1,6 @@
 {
   "name": "xss-whitelist",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Whitelist of HTML tags and attributes to help prevent XSS attacks.",
   "main": "dist/index.js",
   "type": "module",
@@ -12,6 +12,7 @@
   ],
   "scripts": {
     "build": "tsc",
+    "prepare": "tsc",
     "test": "vitest --run --coverage"
   },
   "repository": {
