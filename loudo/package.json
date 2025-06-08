@@ -1,0 +1,42 @@
+{
+  "name": "loudo",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "loudo framework",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist/index.js",
+    "dist/index.d.ts"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "test": "vitest --coverage",
+    "test:browser": "vitest --config=vitest.browser.config.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/p-jack/loudo.git"
+  },
+  "author": "Paul Jack",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/p-jack/loudo/issues"
+  },
+  "homepage": "https://github.com/p-jack/loudo#readme",
+  "devDependencies": {
+    "@types/web": "^0.0.138",
+    "@vitest/coverage-v8": "^3.2.2",
+    "happy-dom": "^17.6.3",
+    "typescript": "^5.3.3",
+    "vitest": "^3.2.2"
+  },
+  "dependencies": {
+    "loudo-ds-array": "^0.0.21",
+    "loudo-ds-array-interfaces": "^0.0.37",
+    "loudo-ds-core": "^0.0.44",
+    "loudo-mixin": "^0.0.3",
+    "loudo-weakness": "^0.0.1",
+    "xss-whitelist": "^1.2.1"
+  }
+}
