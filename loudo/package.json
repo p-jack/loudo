@@ -32,6 +32,9 @@
     "vitest": "^3.2.2"
   },
   "dependencies": {
+    "loudify": "^4.0.0",
+    "loudo-bind": "^5.0.0",
+    "loudo-check": "^8.0.0",
     "loudo-ds-array": "^0.0.21",
     "loudo-ds-array-interfaces": "^0.0.37",
     "loudo-ds-core": "^0.0.44",
