@@ -18,7 +18,7 @@ mixin(DequeAdd, [DequeBase, Loud])
 
 
 export abstract class DequeRemove<T extends {}> {
-  abstract clear():T|undefined
+  abstract clear():void
   abstract pop():T|undefined
   abstract shift():T|undefined
 }
