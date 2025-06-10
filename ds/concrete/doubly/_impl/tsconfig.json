@@ -1,0 +1,19 @@
+{
+  "include":["index.ts"],
+  "compilerOptions": {
+    "esModuleInterop":true,
+    "outDir": "./dist/",
+    "module": "Node16",
+    "target": "es6",
+    "declaration": true,
+    "lib": ["es2021"],
+    "strict": true,
+    "skipLibCheck": true,
+    "noUncheckedIndexedAccess": true,
+    "moduleDetection": "force",
+    "moduleResolution": "Node16",
+    "isolatedModules": true,
+    "sourceMap": true,
+    "noImplicitOverride": true,
+  },
+}
