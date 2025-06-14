@@ -70,3 +70,8 @@ test("replace", () => {
 test("size", () => {
   expect(n.size).toBe(3)
 })
+test("toEmpty", () => {
+  const e = n.toEmpty()
+  expect(e.size).toBe(0)
+  expect([...e]).toStrictEqual([])
+})

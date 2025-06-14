@@ -1,14 +1,20 @@
-import { BaseSet, SetAdd, SetRemove } from "loudo-ds-set-interfaces";
+import { SetBase, SetAdd, SetRemove } from "loudo-ds-set-interfaces";
 import { mixin } from "loudo-mixin";
 import { One } from "loudo-ds-one";
+import { Parsable } from "loudo-ds-core";
 
 const set = Symbol("set")
+const conf = Symbol("conf")
+
+export interface Conf {}
 
 export class NSet<T extends {}> {
 
-  [set]:Set<T>
+  private [set]:Set<T>
+  protected readonly [conf]:Conf
 
-  constructor(elements:Iterable<T>) {
+  constructor(elements:Iterable<T>, config:Conf = {}) {
+    this[conf] = config
     if (elements instanceof Set) this[set] = elements
     else this[set] = new Set(elements)
   }
@@ -17,13 +23,17 @@ export class NSet<T extends {}> {
     return new NSet(elements)
   }
 
-  static from<T extends {}>(elements:Iterable<T>) {
-    return new NSet(elements)
+  static from<T extends {}>(elements:Iterable<T>, conf:Conf = {}) {
+    return new NSet(elements, conf)
   }
 
   static fromJSON(json:any) {
     if (!Array.isArray(json)) throw new TypeError(`can't convert ${typeof json} to NSet`)
     return new NSet(json)
+  }
+
+  toEmpty() {
+    return new NSet<T>([], this[conf])
   }
 
   get size() { return this[set].size }
@@ -72,5 +82,5 @@ export class NSet<T extends {}> {
     return c
   }
 }
-export interface NSet<T extends {}> extends BaseSet<T>, SetAdd<T>, SetRemove<T> {}
-mixin(NSet, [BaseSet, SetAdd, SetRemove])
+export interface NSet<T extends {}> extends SetBase<T>, SetAdd<T>, SetRemove<T>, Parsable<T> {}
+mixin(NSet, [SetBase, SetAdd, SetRemove])
