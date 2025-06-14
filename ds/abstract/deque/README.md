@@ -1,4 +1,4 @@
-## loudo-ds-array
+## loudo-ds-deque-interfaces
 
 
 
