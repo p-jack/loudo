@@ -1,7 +1,7 @@
 {
   "name": "loudo-ds-array",
   "type": "module",
-  "version": "0.0.21",
+  "version": "0.0.22",
   "description": "Loud array implementation.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -34,7 +34,7 @@
     "vitest": "^3.1.4"
   },
   "dependencies": {
-    "loudo-ds-array-interfaces": "^0.0.37",
+    "loudo-ds-array-interfaces": "^0.0.38",
     "loudo-ds-one": "^0.0.14"
   }
 }
