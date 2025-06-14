@@ -21,6 +21,7 @@ export abstract class DequeRemove<T extends {}> {
   abstract clear():void
   abstract pop():T|undefined
   abstract shift():T|undefined
+  abstract drop(f:(x:T)=>boolean):number
 }
 export interface DequeRemove<T extends {}> extends DequeBase<T>, Loud<T> {}
 mixin(DequeRemove, [DequeBase, Loud])
