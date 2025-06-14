@@ -25,3 +25,7 @@ export abstract class SetRemove<T extends {}> {
 }
 export interface SetRemove<T extends {}> extends SetBase<T>, Loud<T> {}
 mixin(SetAdd, [SetBase, Loud])
+
+export abstract class SetChange<T extends {}> {
+  abstract replace(i:Iterable<T>):void
+}
