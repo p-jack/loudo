@@ -1,6 +1,7 @@
 import { OnlyError, Parsable, Sized, sized } from "loudo-ds-core";
 import { mixin } from "loudo-mixin";
 import { One } from "loudo-ds-one";
+import { DequeChange } from "loudo-ds-deque-interfaces";
 
 
 interface Node<T extends {}> {
@@ -34,6 +35,10 @@ export class Doubly<T extends {}> {
 
   static of<T extends {}>(...elements:T[]) {
     return new Doubly(elements)
+  }
+
+  static from<T extends {}>(elements:Iterable<T>, c:Conf<T>) {
+    return new Doubly(elements, c)
   }
 
   get size() { return this[size] }
@@ -133,6 +138,25 @@ export class Doubly<T extends {}> {
     this.fire({cleared})
   }
 
+  drop(f:(x:T)=>boolean):number {
+    let r = 0
+    for (let n = this[first]; n !== undefined; n = n.next) {
+      if (!f(n.value)) continue
+      this[size]--
+      r++
+      if (n.prev === undefined) {
+        this[first] = n.next
+        if (n.next === undefined) this[last] = undefined
+        else n.next.prev = undefined
+      } else {
+        n.prev.next = n.next
+        if (n.next === undefined) this[last] = n.prev
+        else n.next.prev = n.prev
+      }
+    }
+    return r
+  }
+
   replace(i:Iterable<T>) {
     const cleared = this[size]
     this[first] = undefined
@@ -157,5 +181,5 @@ export class Doubly<T extends {}> {
   toEmpty():Doubly<T> { return new Doubly<T>([], this[conf]) }
 
 }
-export interface Doubly<T> extends Parsable<T> {}
+export interface Doubly<T> extends DequeChange<T>, Parsable<T> {}
 mixin(Doubly, [Parsable])

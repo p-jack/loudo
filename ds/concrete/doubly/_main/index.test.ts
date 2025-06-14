@@ -33,6 +33,23 @@ test("clear", () => {
   expect(c.get()).toStrictEqual({cleared:3})
 })
 
+test("drop", () => {
+  const d = Doubly.of(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+  expect(d.drop(x => x === 100)).toBe(0)
+  expect(d.drop(x => x % 2 === 1)).toBe(5)
+  expect([...d]).toStrictEqual([2, 4, 6, 8, 10])
+  expect([...d.reversed()]).toStrictEqual([10, 8, 6, 4, 2])
+  expect(d.drop(x => x === 10)).toBe(1)
+  expect([...d]).toStrictEqual([2, 4, 6, 8])
+  expect([...d.reversed()]).toStrictEqual([8, 6, 4, 2])
+  expect(d.drop(x => x === 2)).toBe(1)
+  expect([...d]).toStrictEqual([4, 6, 8])
+  expect([...d.reversed()]).toStrictEqual([8, 6, 4])
+  expect(d.drop(() => true)).toBe(3)
+  expect([...d]).toStrictEqual([])
+  expect([...d.reversed()]).toStrictEqual([])
+})
+
 test("first", () => {
   expect(d.first).toBe("A")
   expect(e.first).toBeUndefined()

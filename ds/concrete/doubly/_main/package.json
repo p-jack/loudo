@@ -1,7 +1,7 @@
 {
   "name": "loudo-ds-doubly",
   "type": "module",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Loud doubly-linked list.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -34,7 +34,7 @@
     "vitest": "^3.1.4"
   },
   "dependencies": {
-    "loudo-ds-deque-interfaces": "^0.0.2",
+    "loudo-ds-deque-interfaces": "^0.0.3",
     "loudo-ds-one": "^0.0.14"
   }
 }
