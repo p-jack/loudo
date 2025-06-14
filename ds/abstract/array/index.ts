@@ -95,6 +95,7 @@ export abstract class ArrayRemove<T extends {}> {
 
   abstract removeAt(i:number):T
   abstract clear():void
+  abstract replace(i:Iterable<T>):void
 
   drop(f:(x:T,i:number)=>boolean):number {
     let i = 0, max = this.size, r = 0
@@ -103,8 +104,7 @@ export abstract class ArrayRemove<T extends {}> {
       if (f(x,j)) {
         this.removeAt(i)
         r++
-      }
-      else i++
+      } else i++
     }
     return r
   }
