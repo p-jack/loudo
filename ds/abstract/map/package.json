@@ -1,0 +1,39 @@
+{
+  "name": "loudo-ds-map-interfaces",
+  "type": "module",
+  "version": "0.0.23",
+  "description": "Core interfaces loud maps (dictionaries.)",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "README.md",
+    "dist/index.js",
+    "dist/index.d.ts"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "prepare": "tsc",
+    "test": "vitest --coverage"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/p-jack/loudo-ds.git"
+  },
+  "author": "Paul Jack",
+  "license": "BSD-3-Clause",
+  "bugs": {
+    "url": "https://github.com/p-jack/loudo-ds/issues"
+  },
+  "homepage": "https://github.com/p-jack/loudo-ds#readme",
+  "devDependencies": {
+    "@vitest/coverage-v8": "^3.1.4",
+    "jsdom": "^26.1.0",
+    "loudo-ds-tools-capture": "^0.0.5",
+    "typescript": "^5.7",
+    "vitest": "^3.1.4"
+  },
+  "dependencies": {
+    "loudo-ds-core": "^0.0.44",
+    "loudo-ds-one": "^0.0.15"
+  }
+}
