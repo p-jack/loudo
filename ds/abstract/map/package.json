@@ -17,14 +17,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/p-jack/loudo-ds.git"
+    "url": "git+https://github.com/p-jack/loudo.git"
   },
   "author": "Paul Jack",
   "license": "BSD-3-Clause",
   "bugs": {
-    "url": "https://github.com/p-jack/loudo-ds/issues"
+    "url": "https://github.com/p-jack/loudo/issues"
   },
-  "homepage": "https://github.com/p-jack/loudo-ds#readme",
+  "homepage": "https://github.com/p-jack/loudo#readme",
   "devDependencies": {
     "@vitest/coverage-v8": "^3.1.4",
     "jsdom": "^26.1.0",
