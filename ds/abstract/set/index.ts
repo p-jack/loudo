@@ -1,9 +1,9 @@
 import { Loud, Sized } from "loudo-ds-core";
 import { mixin } from "loudo-mixin";
 
-export abstract class BaseSet<T extends {}> {}
-export interface BaseSet<T extends {}> extends Sized<T> {}
-mixin(BaseSet, [Sized])
+export abstract class SetBase<T extends {}> {}
+export interface SetBase<T extends {}> extends Sized<T> {}
+mixin(SetBase, [Sized])
 
 export abstract class SetAdd<T extends {}> {
   abstract add(v:T):boolean
@@ -15,13 +15,13 @@ export abstract class SetAdd<T extends {}> {
     return c
   }
 }
-export interface SetAdd<T extends {}> extends BaseSet<T>, Loud<T> {}
-mixin(SetAdd, [BaseSet, Loud])
+export interface SetAdd<T extends {}> extends SetBase<T>, Loud<T> {}
+mixin(SetAdd, [SetBase, Loud])
 
 export abstract class SetRemove<T extends {}> {
   abstract remove(v:T):boolean
   abstract clear():number
   abstract drop(f:(v:T)=>boolean):number
 }
-export interface SetRemove<T extends {}> extends BaseSet<T>, Loud<T> {}
-mixin(SetAdd, [BaseSet, Loud])
+export interface SetRemove<T extends {}> extends SetBase<T>, Loud<T> {}
+mixin(SetAdd, [SetBase, Loud])

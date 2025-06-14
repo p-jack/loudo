@@ -1,5 +1,5 @@
 import { mixin } from "loudo-mixin";
-import { BaseSet, SetAdd } from "./index.js";
+import { SetBase, SetAdd } from "./index.js";
 import { beforeEach, expect, test } from "vitest";
 
 class Test {
@@ -12,7 +12,7 @@ class Test {
     return true
   }
 }
-interface Test extends BaseSet<number>, SetAdd<number> {}
+interface Test extends SetBase<number>, SetAdd<number> {}
 mixin(Test, [SetAdd])
 
 let set = new Test(new Set([11, 22, 33]))
