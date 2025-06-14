@@ -1,5 +1,7 @@
 import { test, expect } from "vitest"
 import { One } from "./index"
+import { mixed } from "loudo-mixin"
+import { Sized, Stash } from "loudo-ds-core"
 
 test("One", () => {
   const one = One.of("111")
@@ -12,4 +14,10 @@ test("One", () => {
   expect(one.only).toBe("111")
   expect([...one]).toStrictEqual(["111"])
   expect([...one]).toStrictEqual(["111"])
+})
+
+test("mixins", () => {
+  const one = One.of("111")
+  expect(mixed(one, Sized)).toBe(true)
+  expect(mixed(one, Stash)).toBe(true)
 })
