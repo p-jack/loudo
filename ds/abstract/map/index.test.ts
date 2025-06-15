@@ -1,7 +1,6 @@
 import { test, expect, describe, beforeEach } from "vitest"
-import { MapBase, MapChange, MapRemove } from "./index"
+import { MapBase, MapChange, Pair, Pairs, MapRemove, forEach } from "./index"
 import { mixin, mixed } from "loudo-mixin"
-import { capture } from "loudo-ds-tools-capture"
 import { Loud, Sized, Stash } from "loudo-ds-core"
 
 class Nums {
@@ -68,16 +67,6 @@ class M {
   *[Symbol.iterator]() {
     for (const [k,v] of this.m) yield { key:k, value:v }
   }
-  rawPut(key:string, value:number) {
-    const old = this.m.get(key)
-    this.m.set(key, value)
-    return old
-  }
-  removeKey(key:string) {
-    const old = this.m.get(key)
-    this.m.delete(key)
-    return old
-  }
 }
 interface M extends MapChange<string,number>,MapRemove<string,number> {}
 mixin(M, [MapChange, MapRemove])
@@ -93,54 +82,29 @@ test("mixins", () => {
   expect(mixed(map, Loud)).toBe(true)
 })
 
-describe("putAll", () => {
-  let map = new M()
-  let c = capture(map)
+describe("forEach", () => {
+  let a:Pair<string,number>[] = []
+  const f = (key:string,value:number) => a.push({key,value})
   beforeEach(() => {
-    map = new M()
-    c = capture(map)
+    a = []
   })
   const elements1 = [{key:"one", value:1}, {key:"two", value:2}]
   const event1 = {added:{elements:elements1}}
   const elements2 = [{key:"one", value:1}, {key:"two", value:22}, {key:"three", value:3}]
   const event2 = {added:{elements:[{key:"three", value:3}]}}
   test("object", () => {
-    map.putAll({"one":1, "two":2,})
-    expect([...map]).toStrictEqual(elements1)
-    expect(c.get()).toStrictEqual(event1)
-    map.putAll({"two":22, "three":3})
-    expect([...map]).toStrictEqual(elements2)
-    expect(c.get()).toStrictEqual(event2)
-    map.putAll({"two":22, "three":3})
-    expect([...map]).toStrictEqual(elements2)
-    expect(c.get()).toBeUndefined()
+    forEach({"one":1, "two":2}, f)
+    expect(a).toStrictEqual(elements1)
   })
   test("tuples", () => {
     const input = new Map<string,number>()
     input.set("one", 1)
     input.set("two", 2)
-    map.putAll(input)
-    expect([...map]).toStrictEqual(elements1)
-    expect(c.get()).toStrictEqual(event1)
-    const input2 = new Map<string,number>()
-    input2.set("two", 22)
-    input2.set("three", 3)
-    map.putAll(input2)
-    expect([...map]).toStrictEqual(elements2)
-    expect(c.get()).toStrictEqual(event2)
-    map.putAll(input2)
-    expect([...map]).toStrictEqual(elements2)
-    expect(c.get()).toBeUndefined()
+    forEach(input, f)
+    expect(a).toStrictEqual(elements1)
   })
   test("entries", () => {
-    map.putAll(elements1)
-    expect([...map]).toStrictEqual(elements1)
-    expect(c.get()).toStrictEqual(event1)
-    map.putAll([{key:"two", value:22}, {key:"three", value:3}])
-    expect([...map]).toStrictEqual(elements2)
-    expect(c.get()).toStrictEqual(event2)
-    map.putAll([{key:"two", value:22}, {key:"three", value:3}])
-    expect([...map]).toStrictEqual(elements2)
-    expect(c.get()).toBeUndefined()
+    forEach(elements1, f)
+    expect(a).toStrictEqual(elements1)
   })
 })
