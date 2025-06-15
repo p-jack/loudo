@@ -68,7 +68,7 @@ mixin(MapRemove, [MapBase, Loud])
 export type Object<K extends {},V extends {}> = K extends string ? Record<string,V> : never
 export type MapInput<K extends {},V extends {}> = Iterable<Entry<K,V>> | Iterable<[K,V]> | Object<K,V>
 
-function forEach<K extends {},V extends {}>(input:MapInput<K,V>, f:(k:K, v:V)=>void):number {
+export function forEach<K extends {},V extends {}>(input:MapInput<K,V>, f:(k:K, v:V)=>void):number {
   let count = 0
   if (Symbol.iterator in input) {
     for (const x of input) {
