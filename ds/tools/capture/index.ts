@@ -18,11 +18,11 @@ export interface Capture<T extends {}> {
 function mod<T extends {}>(mod?:ModI<T>):Mod<T>|undefined {
   if (mod === undefined) return undefined
   const at = mod.at
-  const elements = [...mod.elements]
+  let elements = [...mod.elements] as any[]
   if (elements.length === 0) throw new TypeError("mod should have elements")
   const first = elements[0]!
   if (typeof(first) === "object" && "key" in first && "value" in first) {
-    return { elements:elements.map((x:any) => { return { key:x.key, value:x.value }}) as never}
+    elements = elements.map((x:any) => { return { key:x.key, value:x.value }})
   }
   if (at < 0) return { elements }
   return { at, elements }

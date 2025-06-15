@@ -70,6 +70,6 @@ test("entries", () => {
   const foo = new Foo({ key:"1", value:1, extra:"ignored" })
   const c = capture(foo)
   expect(c.get()).toStrictEqual({
-    added: { elements:[{ key:"1", value:1 }] },
+    added: { elements:[{ key:"1", value:1 }], at:0 },
   })
 })

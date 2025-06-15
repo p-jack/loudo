@@ -1,7 +1,7 @@
 {
   "name": "loudo-ds-tools-capture",
   "type": "module",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Testing utility for testing events.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
