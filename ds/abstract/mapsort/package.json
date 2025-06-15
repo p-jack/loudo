@@ -1,7 +1,7 @@
 {
   "name": "loudo-ds-mapsort-interfaces",
   "type": "module",
-  "version": "0.0.16",
+  "version": "0.0.17",
   "description": "Core interfaces loud sorted maps (dictionaries.)",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -33,6 +33,6 @@
     "vitest": "^3.1.4"
   },
   "dependencies": {
-    "loudo-ds-map-interfaces": "^0.0.23"
+    "loudo-ds-map-interfaces": "^0.0.24"
   }
 }
