@@ -24,8 +24,10 @@ export abstract class SetRemove<T extends {}> {
   abstract drop(f:(v:T)=>boolean):number
 }
 export interface SetRemove<T extends {}> extends SetBase<T>, Loud<T> {}
-mixin(SetAdd, [SetBase, Loud])
+mixin(SetRemove, [SetBase, Loud])
 
 export abstract class SetChange<T extends {}> {
   abstract replace(i:Iterable<T>):void
 }
+export interface SetChange<T extends {}> extends SetBase<T>, Loud<T> {}
+mixin(SetChange, [SetBase, Loud])
