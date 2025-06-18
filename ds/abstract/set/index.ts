@@ -20,8 +20,8 @@ mixin(SetAdd, [SetBase, Loud])
 
 export abstract class SetRemove<T extends {}> {
   abstract remove(v:T):boolean
-  abstract clear():number
-  abstract drop(f:(v:T)=>boolean):number
+  abstract clear():void
+  abstract drop(f:(v:T)=>boolean):void
 }
 export interface SetRemove<T extends {}> extends SetBase<T>, Loud<T> {}
 mixin(SetRemove, [SetBase, Loud])
