@@ -95,18 +95,14 @@ export abstract class ArrayRemove<T extends {}> {
 
   abstract removeAt(i:number):T
   abstract clear():void
-  abstract replace(i:Iterable<T>):void
 
-  drop(f:(x:T,i:number)=>boolean):number {
-    let i = 0, max = this.size, r = 0
+  drop(f:(x:T,i:number)=>boolean):void {
+    let i = 0, max = this.size
     for (let j = 0; j < max; j++) {
       const x = this.raw(i)
-      if (f(x,j)) {
-        this.removeAt(i)
-        r++
-      } else i++
+      if (f(x,j)) this.removeAt(i)
+      else i++
     }
-    return r
   }
 
 }
@@ -116,6 +112,7 @@ mixin(ArrayRemove, [ArrayBase, Loud])
 
 export abstract class ArrayChange<T extends {}> {
   abstract set(i:number, v:T):void
+  abstract replace(i:Iterable<T>):void
   reverse() {
     for (let i = 0; i < this.size / 2; i++) {
       const temp = this.raw(i)

@@ -122,54 +122,54 @@ describe("ArrayRemove", () => {
     describe("by value", () => {
       test("start", () => {
         const a = new M(["z1", "z2", "z3", "A", "B"])
-        expect(a.drop(x => x.startsWith("z"))).toBe(3)
+        a.drop(x => x.startsWith("z"))
         expect([...a]).toStrictEqual(["A", "B"])
       })
       test("end", () => {
         const a = new M(["A", "B", "z1", "z2", "z3"])
-        expect(a.drop(x => x.startsWith("z"))).toBe(3)
+        a.drop(x => x.startsWith("z"))
         expect([...a]).toStrictEqual(["A", "B"])
       })
       test("middle", () => {
         const a = new M(["A", "z1", "z2", "z3", "B"])
-        expect(a.drop(x => x.startsWith("z"))).toBe(3)
+        a.drop(x => x.startsWith("z"))
         expect([...a]).toStrictEqual(["A", "B"])
       })
       test("all", () => {
         const a = new M(["z1", "A", "z2", "B", "z3"])
-        expect(a.drop(x => x.startsWith("z"))).toBe(3)
+        a.drop(x => x.startsWith("z"))
         expect([...a]).toStrictEqual(["A", "B"])
       })
       test("clear", () => {
         const a = new M(["z1", "A", "z2", "B", "z3"])
-        expect(a.drop(() => true)).toBe(5)
+        a.drop(() => true)
         expect([...a]).toStrictEqual([])
       })
     })
     describe("by index", () => {
       test("start", () => {
         const a = new M(["z1", "z2", "z3", "A", "B"])
-        expect(a.drop((_,i) => i < 3)).toBe(3)
+        a.drop((_,i) => i < 3)
         expect([...a]).toStrictEqual(["A", "B"])
       })
       test("end", () => {
         const a = new M(["A", "B", "z1", "z2", "z3"])
-        expect(a.drop((_,i) => i >= 2)).toBe(3)
+        a.drop((_,i) => i >= 2)
         expect([...a]).toStrictEqual(["A", "B"])
       })
       test("middle", () => {
         const a = new M(["A", "z1", "z2", "z3", "B"])
-        expect(a.drop((_,i) => i >= 1 && i <= 3)).toBe(3)
+        a.drop((_,i) => i >= 1 && i <= 3)
         expect([...a]).toStrictEqual(["A", "B"])
       })
       test("all", () => {
         const a = new M(["z1", "A", "z2", "B", "z3"])
-        expect(a.drop((_,i) => i === 0 || i === 2 || i === 4)).toBe(3)
+        a.drop((_,i) => i === 0 || i === 2 || i === 4)
         expect([...a]).toStrictEqual(["A", "B"])
       })
       test("clear", () => {
         const a = new M(["z1", "A", "z2", "B", "z3"])
-        expect(a.drop(() => true)).toBe(5)
+        a.drop(() => true)
         expect([...a]).toStrictEqual([])
       })
     })
