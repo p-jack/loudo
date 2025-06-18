@@ -1,7 +1,7 @@
 {
   "name": "loudo-ds-setsort-interfaces",
   "type": "module",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Core interfaces loud sorted sets.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -34,6 +34,6 @@
   },
   "dependencies": {
     "loudo-ds-core": "^0.0.44",
-    "loudo-ds-set-interfaces": "^0.0.6"
+    "loudo-ds-set-interfaces": "^0.0.7"
   }
 }
