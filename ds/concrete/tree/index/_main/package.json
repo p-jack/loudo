@@ -1,0 +1,42 @@
+{
+  "name": "loudo-ds-tree-index",
+  "type": "module",
+  "version": "0.0.1",
+  "description": "Loud index based on a weighted binary search tree.",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "README.md",
+    "dist/index.js",
+    "dist/index.d.ts"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "prepare": "tsc",
+    "test": "vitest --coverage"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/p-jack/loudo.git"
+  },
+  "author": "Paul Jack",
+  "license": "BSD-3-Clause",
+  "bugs": {
+    "url": "https://github.com/p-jack/loudo/issues"
+  },
+  "homepage": "https://github.com/p-jack/loudo#readme",
+  "devDependencies": {
+    "@vitest/coverage-v8": "^3.1.4",
+    "jsdom": "^26.1.0",
+    "loudo-ds-tools-capture": "^0.0.5",
+    "typescript": "^5.7",
+    "vitest": "^3.1.4"
+  },
+  "dependencies": {
+    "loudo-ds-core": "^0.0.44",
+    "loudo-ds-index-interfaces": "^0.0.2",
+    "loudo-ds-set-interfaces": "^0.0.7",
+    "loudo-ds-setsort-interfaces": "^0.0.2",
+    "loudo-ds-tree-map": "^0.0.2"
+  }
+}
