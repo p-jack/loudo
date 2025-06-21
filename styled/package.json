@@ -1,0 +1,36 @@
+{
+  "name": "loudo-styled",
+  "type": "module",
+  "version": "2.0.0",
+  "description": "Create loudo el instances with inline CSS.",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist/index.js",
+    "dist/index.d.ts"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "test": "vitest --coverage"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/p-jack/loudo-styled.git"
+  },
+  "author": "Paul Jack",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/p-jack/loudo-styled/issues"
+  },
+  "homepage": "https://github.com/p-jack/loudo-styled#readme",
+  "devDependencies": {
+    "@types/web": "^0.0.138",
+    "@vitest/coverage-v8": "^3.2.4",
+    "jsdom": "^26.1.0",
+    "typescript": "^5.3.3",
+    "vitest": "^3.2.4"
+  },
+  "dependencies": {
+    "loudo-bind": "^5.0.0"
+  }
+}
