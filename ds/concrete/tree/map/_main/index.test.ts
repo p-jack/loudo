@@ -27,12 +27,12 @@ function root<K extends {},V extends {}>(tree:TreeMap<K,V>) {
   return root
 }
 
-function dump<K extends {},V extends {}>(node?:Node<K,V>, indent = "") {
-  if (node === undefined) return
-  console.log(indent + node?.key + ":" + node?.value + "/" + node?.weight)
-  dump(node.left, indent + " ")
-  dump(node.right, indent + " ")
-}
+// function dump<K extends {},V extends {}>(node?:Node<K,V>, indent = "") {
+//   if (node === undefined) return
+//   console.log(indent + node?.key + ":" + node?.value + "/" + node?.weight)
+//   dump(node.left, indent + " ")
+//   dump(node.right, indent + " ")
+// }
 
 function check<K extends {},V extends {}>(node?:Node<K,V>) {
   if (node === undefined) return
@@ -68,24 +68,6 @@ const cases:TestCase[] = [
   { name: "ascending", input: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15] },
   { name: "descending", input: [15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1] },
 ]
-
-function shuffle(array:any[]) {
-  let currentIndex = array.length;
-
-  // While there remain elements to shuffle...
-  while (currentIndex != 0) {
-
-    // Pick a remaining element...
-    let randomIndex = Math.floor(Math.random() * currentIndex);
-    currentIndex--;
-
-    // And swap it with the current element.
-    [array[currentIndex], array[randomIndex]] = [
-      array[randomIndex], array[currentIndex]];
-  }
-  return JSON.stringify(array)
-}
-console.log(shuffle([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]))
 
 describe("TreeMap", () => { for (const tc of cases) {
   test(tc.name + " init", () => {
@@ -205,17 +187,17 @@ describe("TreeMap", () => { for (const tc of cases) {
       })
     })
     test("putAll", () => {
-      tree.putAll([[13.5,"13.5"]])
+      expect(tree.putAll([[13.5,"13.5"]])).toBe(1)
       expect(c.get()).toStrictEqual({
         added:{elements:[{key:13.5,value:"13.5"}], at:13}
       })
-      tree.putAll([])
+      expect(tree.putAll([])).toBe(0)
       expect(c.get()).toBeUndefined()
       tree.clear()
       expect(c.get()).toStrictEqual({cleared:16})
-      tree.putAll([])
+      expect(tree.putAll([])).toBe(0)
       expect(c.get()).toBeUndefined()
-      tree.putAll([[1,"1"],[2,"2"]])
+      expect(tree.putAll([[1,"1"],[2,"2"]])).toBe(2)
       expect(c.get()).toStrictEqual({
         added:{elements:[{key:1,value:"1"},{key:2,value:"2"}], at:0}
       })

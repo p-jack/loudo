@@ -114,8 +114,8 @@ const range = Symbol("range")
 export class TreeMap<K extends {},V extends {}> {
 
   private [root]:N<K,V>
-  [compare]:(a:K,b:K)=>number
-  [conf]:Conf<K,V>
+  private [compare]:(a:K,b:K)=>number
+  protected [conf]:Conf<K,V>
 
   constructor(input:Pairs<K,V>, c:Conf<K,V>) {
     this[compare] = c.compare
@@ -326,14 +326,16 @@ export class TreeMap<K extends {},V extends {}> {
   }
 
   putAll(entries:Pairs<K,V>) {
-    if (this.size === 0) {
-      const c = forEach(entries, (k,v) => this.rawPut(k,v))
-      if (c > 0) this.fire({added:{elements:this, at:0}})
-      return
+    let sz = this.size
+    if (sz > 0) {
+      forEach(entries, (k,v) => { this.put(k,v) })
+      return this.size - sz
     }
-    forEach(entries, (k,v) => this.put(k,v))
+    forEach(entries, (k,v) => { this.rawPut(k,v) })
+    const changed = this.size - sz
+    if (changed > 0) this.fire({added:{elements:this, at:0}})
+    return changed
   }
-
 
   removeKey(key:K) {
     const node = this[find](key)
