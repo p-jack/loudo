@@ -9,6 +9,11 @@ export function setLog(on:boolean) {
   log = on
 }
 
+let placeholder = "https://live.staticflickr.com/8429/7729300102_2b4b747048_b.jpg"
+export function setPlaceholder(url:URL) {
+  placeholder = url.href
+}
+
 export type Part = string|ElMaker<any>
 
 function insert(rule:string) {
@@ -145,4 +150,34 @@ export function keyframed2():(animation:TSA)=>(keyframes:TSA)=>[string, string] 
       return [fullName, fullName + "-b"]
     }
   }
+}
+
+function url(v:{}) {
+  if (v instanceof URL) return v
+  const s = String(v)
+  try {
+    return new URL(s)
+  } catch (e) {
+    return s
+  }
+}
+
+function str(v:{}) {
+  if (typeof v === "number") return v + "px"
+  const u = url(v)
+  if (!(u instanceof URL)) return u
+  if (window.location.hostname === "localhost" && u.protocol === "http:") return u.href
+  if (u.protocol !== "https:") {
+    console.error("XSS: invalid url protocol", v)
+    return placeholder
+  }
+  return u.href
+}
+
+export function setVar(el:HTMLElement, name:string, value:{}) {
+  el.style.setProperty(name, str(value))
+}
+
+export function getVar(el:HTMLElement, name:string) {
+  return getComputedStyle(el).getPropertyValue(name)
 }

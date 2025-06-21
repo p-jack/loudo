@@ -1,10 +1,10 @@
 {
   "name": "loudo-styled",
   "type": "module",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Create loudo el instances with inline CSS.",
   "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+    "types": "dist/index.d.ts",
   "files": [
     "dist/index.js",
     "dist/index.d.ts"

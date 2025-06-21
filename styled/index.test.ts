@@ -1,5 +1,5 @@
 import { afterEach, test, expect, describe, beforeEach } from "vitest"
-import { styled, addRule, nextSuffix, clear, setLog, keyframed, media, keyframed2 } from "./index"
+import { styled, addRule, nextSuffix, clear, setLog, keyframed, media, keyframed2, setVar, getVar, setPlaceholder } from "./index"
 
 function style() {
   return document.getElementById("loudo-styled") as HTMLStyleElement
@@ -160,4 +160,36 @@ test("keyframed2", () => {
   expect(ruleAt(1)).toBe(".fadeOut-1 {animation: forwards 1s ease-out fadeOut-1;}")
   expect(lastRule()).toBe(".fadeOut-1-b {animation: backwards 1s ease-out fadeOut-1-b;}")
   expect(() => { keyframed2()```` }).toThrow("invalid animation")
+})
+
+describe("setVar", () => {
+  setPlaceholder(new URL("https://example.com"))
+  const b = document.body
+  const orig = console.error
+  let captured:string[] = []
+  beforeEach(() => {
+    captured = []
+    console.error = (s:string) => { captured.push(s) }
+  })
+  afterEach(() => {
+    console.error = orig
+  })
+  test("good", () => {
+    setVar(b, "--var", "#123")
+    expect(getVar(b, "--var")).toBe("#123")
+    setVar(b, "--var", 123)
+    expect(getVar(b, "--var")).toBe("123px")
+    setVar(b, "--var", "https://foo.com")
+    expect(getVar(b, "--var")).toBe("https://foo.com/")
+    setVar(b, "--var", new URL("https://foo.com"))
+    expect(getVar(b, "--var")).toBe("https://foo.com/")
+    setVar(b, "--var", "http://localhost:3000/foo/bar")
+    expect(getVar(b, "--var")).toBe("http://localhost:3000/foo/bar")
+    expect(captured).toStrictEqual([])
+  })
+  test("bad", () => {
+    setVar(document.body, "--var", "javascript://alert(1)")
+    expect(captured).toStrictEqual(["XSS: invalid url protocol"])
+    expect(getVar(document.body, "--var")).toBe("https://example.com/")
+  })
 })
