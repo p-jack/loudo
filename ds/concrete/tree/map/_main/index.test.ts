@@ -308,22 +308,3 @@ test("non-unique", () => {
   expect([...tree.keys]).toStrictEqual([1, 1])
   expect(tree.hasKey(1)).toBe(true)
 })
-
-// test("special balance", () => {
-//   tree.clear()
-//   tree.put(1, "")
-//   const r = root(tree) as TNode<number,string>
-//   r.left = new TNode(0, "")
-//   r.left.parent = r
-//   r.right = new TNode(4, "")
-//   r.right.parent = r
-//   r.right.left = new TNode(2, "")
-//   r.right.left.parent = r.right
-//   r.right.left.right = new TNode(3, "")
-//   r.right.left.right.parent = r.right.left
-//   r.right.right = new TNode(5, "")
-//   r.right.right.parent = r.right
-//   dump(root(tree))
-//   tree.removeKey(1)
-//   dump(root(tree))
-// })
