@@ -89,9 +89,6 @@ describe("forEach", () => {
     a = []
   })
   const elements1 = [{key:"one", value:1}, {key:"two", value:2}]
-  const event1 = {added:{elements:elements1}}
-  const elements2 = [{key:"one", value:1}, {key:"two", value:22}, {key:"three", value:3}]
-  const event2 = {added:{elements:[{key:"three", value:3}]}}
   test("object", () => {
     forEach({"one":1, "two":2}, f)
     expect(a).toStrictEqual(elements1)

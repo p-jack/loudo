@@ -30,7 +30,6 @@ export abstract class MapChange<K extends {},V extends {}> {
   abstract put(key:K, value:V):V|undefined
   abstract putAll(entries:Pairs<K,V>):void
   abstract replace(entries:Pairs<K,V>):void
-
 }
 export interface MapChange<K extends {},V extends {}> extends MapBase<K,V>, Loud<Pair<K,V>> {}
 mixin(MapChange, [MapBase, Loud])
