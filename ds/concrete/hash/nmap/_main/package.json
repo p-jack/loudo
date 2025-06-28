@@ -1,7 +1,7 @@
 {
   "name": "loudo-ds-nmap",
   "type": "module",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "description": "Loud map based on browser native Maps.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
