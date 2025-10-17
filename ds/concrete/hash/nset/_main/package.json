@@ -1,7 +1,7 @@
 {
   "name": "loudo-ds-nset",
   "type": "module",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Loud set implementation based on the native browser Set.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",

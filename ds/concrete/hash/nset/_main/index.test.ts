@@ -25,9 +25,11 @@ test("clear", () => {
 })
 test("drop", () => {
   const n = NSet.from(new Set([1, 2, 3, 4, 5, 6, 7, 8, 9]))
+  const c = capture(n);
   expect(n.drop(x => x % 2 === 0)).toBe(4)
   expect(n.size).toBe(5)
   expect([...n]).toStrictEqual([1, 3, 5, 7, 9])
+  expect(c.get()).toStrictEqual({removed:{elements:[8]}})
 })
 test("fromJSON", () => {
   expect(() => { NSet.fromJSON(true) }).toThrowError()

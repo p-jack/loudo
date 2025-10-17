@@ -77,7 +77,11 @@ export class NSet<T extends {}> {
     const s = this[set]
     let c = 0
     for (const x of s) {
-      if (f(x)) { s.delete(x); c++ }
+      if (f(x)) {
+        s.delete(x)
+        c++
+        this.fire({removed:{elements:One.of(x), at:-1}})
+      }
     }
     return c
   }
