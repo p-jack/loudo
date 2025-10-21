@@ -1,5 +1,5 @@
 import { Weakness } from "weakness"
-import { mixin } from "loudo-mixin"
+import { mixed, mixin } from "loudo-mixin"
 
 const heard = Symbol("heard")
 export interface Heard {
@@ -33,6 +33,13 @@ export const EX_EX = { start:false, end:false }
 
 const map = Symbol("map")
 const filter = Symbol("filter")
+
+function sizeFor<T>(i:Iterable<T>) {
+  if (mixed(i, Sized)) return i.size
+  const n = (i as any).length as number
+  if (Number.isSafeInteger(n) && n >= 0) return n
+  return
+}
 
 export abstract class Stash<T extends {}> {
 
@@ -109,6 +116,23 @@ export abstract class Stash<T extends {}> {
   reduce<A>(a:A, f:(a:A, x:T)=>A) {
     for (const x of this) a = f(a, x)
     return a
+  }
+
+  sameSeq(a:Iterable<T>) {
+    if (a === this) return true
+    const eq = this.eq
+    const sz1 = sizeFor(this)
+    const sz2 = sizeFor(a)
+    if (sz1 !== undefined && sz2 !== undefined && sz1 !== sz2) return false
+    let i1 = this[Symbol.iterator]()
+    let i2 = a[Symbol.iterator]()
+    while (true) {
+      const r1 = i1.next()
+      const r2 = i2.next()
+      if (r1.done && r2.done) return true
+      if (r1.done || r2.done) return false
+      if (!eq(r1.value, r2.value)) return false
+    }
   }
 
   toJSON() {
