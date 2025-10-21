@@ -7,37 +7,38 @@ const empty = stash<number>([])
 describe("Stash", () => {
   test("all", () => {
     const a = stash([1, 2, 3])
-    expect(a.all(x => x > 0)).toBe(true)
-    expect(a.all(x => x > 2)).toBe(false)
-    expect(empty.all(() => true)).toBe(false)
+    expect(a.all(x => x > 0)).toStrictEqual(true)
+    expect(a.all(x => x > 2)).toStrictEqual(false)
+    expect(empty.all(() => true)).toStrictEqual(false)
   })
   test("any", () => {
     const a = stash([1, 2, 3])
-    expect(a.any(x => x > 2)).toBe(true)
-    expect(a.any(x => x < 0)).toBe(false)
-    expect(empty.any(() => true)).toBe(false)
+    expect(a.any(x => x > 2)).toStrictEqual(true)
+    expect(a.any(x => x < 0)).toStrictEqual(false)
+    expect(empty.any(() => true)).toStrictEqual(false)
   })
   test("eq", () => {
     const ds0 = stash<number>([])
-    expect(ds0.eq === Object.is).toBe(true)
-    expect(ds0.eq(1, 1)).toBe(true)
+    expect(ds0.eq === Object.is).toStrictEqual(true)
+    expect(ds0.eq(1, 1)).toStrictEqual(true)
+  })
+  test("filter", () => {
+    const ds = stash([1, 2, 3, 4, 5, 6])
+    const f = ds.filter(x => x % 2 === 0)
+    expect([...f]).toStrictEqual([2, 4, 6])
+    expect([...f]).toStrictEqual([2, 4, 6])
+    expect(f.has(4)).toStrictEqual(true)
+  })
+  test("first", () => {
+    expect(stash([]).first).toBeUndefined()
+    expect(stash([11]).first).toStrictEqual(11)
+    expect(stash([111, 222, 333]).first).toStrictEqual(111)
   })
   test("forEach", () => {
     const ds = stash([1, 2, 3, 4, 5])
     let sum = 0
     ds.forEach(x => sum += x)
-    expect(sum).toBe(15)
-  })
-  test("filter", () => {
-    const ds = stash([1, 2, 3, 4, 5, 6])
-    const f = ds.filter(x => x % 2 == 0)
-    expect([...f]).toStrictEqual([2, 4, 6])
-    expect(f.has(4)).toBe(true)
-  })
-  test("first", () => {
-    expect(stash([]).first).toBeUndefined()
-    expect(stash([11]).first).toBe(11)
-    expect(stash([111, 222, 333]).first).toBe(111)
+    expect(sum).toStrictEqual(15)
   })
   test("has", () => {
     const ds = stash([11, 22, 33])
@@ -50,22 +51,23 @@ describe("Stash", () => {
     const ds = stash([1, 2, 3])
     const m = ds.map(x => x * 2)
     expect([...m]).toStrictEqual([2, 4, 6])
-    expect(m.has(6)).toBe(true)
+    expect([...m]).toStrictEqual([2, 4, 6])
+    expect(m.has(6)).toStrictEqual(true)
   })
   describe("only", () => {
     test("zero", () => {
       expect(() => { stash([]).only }).toThrowError()
     })
     test("one", () => {
-      expect(stash([1111]).only).toBe(1111)
+      expect(stash([1111]).only).toStrictEqual(1111)
     })
     test("many", () => {
       expect(() => { stash([1111, 2222, 3333]).only }).toThrowError()
     })
   })
   test("reduce", () => {
-    const ds = stash([1, 2, 3])
-    expect(ds.reduce(0, (a,x) => a + x)).toStrictEqual(6)
+    const ds = stash([1, 2, 3, 4, 5])
+    expect(ds.reduce(0, (a,x) => a + x)).toStrictEqual(15)
   })
   test("toJSON", () => {
     const ds = stash([1, 2, 3])
@@ -90,8 +92,10 @@ describe("Sized", () => {
     const ds3 = sized([11, 22, 33], () => 3)
     const m = ds3.map(x => x + 1)
     expect([...m]).toStrictEqual([12, 23, 34])
-    expect(m.size).toBe(3)
-    expect(m.has(23)).toBe(true)
+    expect([...m]).toStrictEqual([12, 23, 34])
+    expect(m.size).toStrictEqual(3)
+    expect(m.has(23)).toStrictEqual(true)
+    const m2 = ds3.map(x => x + 1)
   })
 })
 
@@ -112,7 +116,7 @@ describe("Loud", () => {
         captured = event
       }
       const heard = ds.hear(globalThis, ear)
-      expect(captured).toBeUndefined()
+      expect(captured).toStrictEqual({cleared:0})
       ds.unhear(heard)
     })
     test("with existing elements", () => {
@@ -126,7 +130,7 @@ describe("Loud", () => {
       expect(captured!.cleared).toBeUndefined()
       expect(captured!.removed).toBeUndefined()
       expect(captured!.added).not.toBeUndefined()
-      expect(captured!.added!.at).toBe(0)
+      expect(captured!.added!.at).toStrictEqual(0)
       expect([...captured!.added!.elements]).toStrictEqual([1, 2, 3])
       ds.unhear(heard)
     })
@@ -151,5 +155,5 @@ class N extends Stash<number> {
 }
 
 test("default eq", () => {
-  expect(new N().eq === Object.is).toBe(true)
+  expect(new N().eq === Object.is).toStrictEqual(true)
 })

@@ -1,4 +1,4 @@
-import { Weakness } from "loudo-weakness"
+import { Weakness } from "weakness"
 import { mixin } from "loudo-mixin"
 
 const heard = Symbol("heard")
@@ -93,8 +93,11 @@ export abstract class Stash<T extends {}> {
     return stash(() => me[map](f), eq)
   }
 
-  private *[filter](f:(x:T)=>boolean) {
-    for (const x of this) if (f(x)) yield x
+  private *[filter](f:(x:T)=>boolean|"stop") {
+    for (const x of this) {
+      const r = f(x)
+      if (r) yield x
+    }
   }
 
   filter(f:(x:T)=>boolean):Stash<T> {
@@ -186,13 +189,13 @@ const ears = Symbol("ears")
 
 export abstract class Loud<T extends {}> {
 
-  private [ears]:Weakness<Ear<T>,true>|undefined
+  private [ears]:Weakness<Ear<T>>|undefined
 
   hear(keeper:object, ear:Ear<T>):Heard {
     if (this[ears] === undefined) this[ears] = new Weakness()
-    const r = { [heard]:this[ears].add(keeper, ear, true) }
-    if (this.empty) return r
-    ear({ added:{ elements:this, at:0 }})
+    const r = { [heard]:this[ears].add(keeper, ear) }
+    if (this.empty) ear({cleared:0})
+    else ear({ added:{ elements:this, at:0 }})
     return r
   }
 

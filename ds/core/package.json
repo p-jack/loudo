@@ -1,7 +1,7 @@
 {
   "name": "loudo-ds-core",
   "type": "module",
-  "version": "0.0.44",
+  "version": "0.0.45",
   "description": "Core interfaces and classes for loudo data structures.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -33,6 +33,6 @@
   },
   "dependencies": {
     "loudo-mixin": "^0.0.3",
-    "loudo-weakness": "^0.0.1"
+    "weakness": "^1.0.0"
   }
 }
